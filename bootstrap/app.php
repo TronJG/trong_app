@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Bắt buộc phải setup DB trước khi vào các trang bên trong
+        $middleware->appendToGroup('web', \App\Http\Middleware\EnsureInstalled::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
